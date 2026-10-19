@@ -47,18 +47,47 @@ OPENCODE_GO_API_KEY: oc_sk_xxx
 
 ## 为什么是「打补丁的插件」
 
-DSH 官方插件的协议表是一张 3 项的表，而 pi-ai 本身已实现第四种协议
+DSH 官方插件的协议表只有 3 项，而 pi-ai 本身已实现第四种协议
 （`google-generative-ai`）。本插件把官方 `dsh-llm-pi-ai` 的编译产物抽取出来，
-打 5 处补丁（新增 google 协议 + 改内部名避免冲突），因此**与 DSH 版本绑定**。
+打 4 处补丁（新增 google 协议 + 改内部名避免冲突）。
 
-DSH 升级后执行：
+### ⚠️ 必须按「运行时那一份」打补丁
+
+DSH 的 profile 插件**不是从 app.asar 解析依赖**的：`<profiles>/node_modules` 是一层
+junction，指向安装时创建的依赖农场。因此存在两种版本可能不一致的情况：
+
+| 来源 | 典型内容 |
+| --- | --- |
+| `app.asar` 内置（app 版本） | `dsh-llm-pi-ai@0.2.1-rc.2`、`pi-ai@1.1.0` |
+| `<profiles>/node_modules` 农场（**插件实际解析到的**） | `dsh-llm-pi-ai@0.1.0-rc.6`、`pi-ai@0.82.1` |
+
+如果照 asar 里的新版抽，补丁产物会 import 农场里不存在的包
+（`@deepseek-ai/dsh-util-values`、`@earendil-works/pi-ai/utils/overflow`），
+插件会**静默加载失败**——模型列表里什么都不会出现。
+
+所以 `tools/build-plugin.py` 默认以 `<profiles>/node_modules/@deepseek-ai/dsh-llm-pi-ai`
+为源（即运行时那一份），asar 仅作兜底。
+
+改动 DSH 或重装插件后：
 
 ```powershell
 python tools/build-plugin.py          # 重新抽取 + 打补丁
 python tools/build-plugin.py --check  # 只检查是否需要刷新
+python tools/build-plugin.py --source <某个官方 lib/index.js>
 ```
 
-脚本会校验补丁锚点；锚点位移会显式报错而不是静默产出坏包。
+脚本会校验锚点唯一性；锚点位移会显式报错而不是静默产出坏包。
+
+### 本地自检（推荐）
+
+在 profile 目录下直接 import，确认能加载再推：
+
+```powershell
+cd $env:USERPROFILE\.dsh\profiles\desktop
+node --input-type=module -e "import('./node_modules/dsh-llm-opencode/index.js').then(m=>console.log(m.supportedProtocols()))"
+```
+
+应输出包含 `google-generative-ai` 的四个协议。
 
 ## 刷新模型清单
 
