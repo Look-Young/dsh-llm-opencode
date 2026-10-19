@@ -1,0 +1,27 @@
+{
+  "name": "dsh-llm-opencode",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE",
+    "DESIGN.md",
+    "tools"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "meta": {
+    "title": "OpenCode Go (三协议直连)",
+    "description": "直连 OpenCode Go：responses / chat / messages 三种协议分组路由，安装即用，自带模型清单刷新与插件重建脚本。"
+  }
+}
