@@ -114,3 +114,15 @@
               - id: claude-haiku-5-5
                 name: Claude Haiku 5.5
                 input: [text, image]
+          oc-google:
+            api: google-generative-ai
+            displayName: OpenCode Go · Gemini
+            baseURL: https://opencode.ai/inference/go/v1
+            apiKeyEnv: OPENCODE_GO_API_KEY
+            headers:
+              x-opencode-session: dsh-opencode-255f6d7b9bf94cb9b3738f58
+              user-agent: dsh-opencode/1.0
+            models:
+              - id: gemini-4-argon-contributor
+                name: Gemini 4 Argon Contributor
+                input: [text, image]
