@@ -1,6 +1,6 @@
 {
   "name": "dsh-llm-opencode",
-  "version": "0.1.0",
+  "version": "0.1.0-rc.6-oc.1",
   "private": true,
   "type": "module",
   "main": "index.js",
@@ -21,7 +21,7 @@
     }
   },
   "meta": {
-    "title": "OpenCode Go (三协议直连)",
-    "description": "直连 OpenCode Go：responses / chat / messages 三种协议分组路由，安装即用，自带模型清单刷新与插件重建脚本。"
+    "title": "OpenCode Go (多协议直连)",
+    "description": "直连 OpenCode Go：responses / chat / messages / google 四种协议分组路由，安装即用，自带模型清单刷新与插件重建脚本。"
   }
 }
