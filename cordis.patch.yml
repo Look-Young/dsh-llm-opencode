@@ -1,0 +1,116 @@
+# dsh-llm-opencode: 直连 OpenCode Go，一个 bundle 接入三种协议。
+# 路由配置内联在这里，所以安装本 bundle 后模型立刻出现，无需再改 profile。
+- insert:
+    - id: llm-opencode
+      name: 'dsh-llm-opencode'
+      config:
+        providers:
+          oc-resp:
+            api: openai-responses
+            displayName: OpenCode Go · Responses
+            baseURL: https://opencode.ai/inference/go/v1
+            apiKeyEnv: OPENCODE_GO_API_KEY
+            headers:
+              x-opencode-session: dsh-opencode-255f6d7b9bf94cb9b3738f58
+              user-agent: dsh-opencode/1.0
+            models:
+              - id: deepseek-v4-flash
+                name: DeepSeek V4 Flash
+                input: [text, image]
+              - id: deepseek-v4-flash-vision-exp
+                name: DeepSeek V4 Flash Vision Exp
+                input: [text, image]
+              - id: deepseek-flash
+                name: DeepSeek Flash
+                input: [text, image]
+              - id: deepseek-v4.1-flash
+                name: DeepSeek V4.1 Flash
+                input: [text, image]
+              - id: deepseek-v4-pro
+                name: DeepSeek V4 Pro
+              - id: grok-4.6
+                name: Grok 4.6
+                input: [text, image]
+              - id: grok-4.7
+                name: Grok 4.7
+                input: [text, image]
+          oc-chat:
+            api: openai-completions
+            displayName: OpenCode Go · Chat
+            baseURL: https://opencode.ai/inference/go/v1
+            apiKeyEnv: OPENCODE_GO_API_KEY
+            headers:
+              x-opencode-session: dsh-opencode-255f6d7b9bf94cb9b3738f58
+              user-agent: dsh-opencode/1.0
+            models:
+              - id: glm-5.3-flash
+                name: GLM-5.3-Flash
+                input: [text, image]
+              - id: glm-5.3
+                name: GLM-5.3
+              - id: glm-5.2
+                name: GLM-5.2
+              - id: glm-5.1
+                name: GLM-5.1
+              - id: kimi-k3
+                name: Kimi K3
+                input: [text, image]
+              - id: kimi-k2.7-code
+                name: Kimi K2.7 Code
+                input: [text, image]
+              - id: kimi-k2.6
+                name: Kimi K2.6
+                input: [text, image]
+              - id: minimax-m2.5
+                name: MiniMax M2.5
+              - id: qwen3.7-max
+                name: Qwen3.7 Max
+              - id: qwen3.6-plus
+                name: Qwen3.6 Plus
+                input: [text, image]
+              - id: mimo-v2.6-pro
+                name: MiMo-V2.6-Pro
+                input: [text, image]
+              - id: mimo-v2.5-pro
+                name: MiMo V2.5 Pro
+              - id: mimo-v2.5
+                name: MiMo V2.5
+                input: [text, image]
+              - id: longcat-2.0
+                name: LongCat-2.0
+              - id: longcat-2.5-preview-free
+                name: LongCat 2.5 Preview Free
+              - id: hy4-preview
+                name: Hy4 preview
+              - id: hy3
+                name: Hy3
+              - id: space-bunny
+                name: Space Bunny
+              - id: omen-alpha
+                name: Omen Alpha
+                input: [text, image]
+          oc-msg:
+            api: anthropic-messages
+            displayName: OpenCode Go · Messages
+            baseURL: https://opencode.ai/inference/go/v1
+            apiKeyEnv: OPENCODE_GO_API_KEY
+            headers:
+              x-opencode-session: dsh-opencode-255f6d7b9bf94cb9b3738f58
+              user-agent: dsh-opencode/1.0
+            models:
+              - id: minimax-m3
+                name: MiniMax M3
+              - id: qwen3.8-max
+                name: Qwen3.8 Max
+                input: [text, image]
+              - id: qwen3.8-flash
+                name: Qwen3.8 Flash
+                input: [text, image]
+              - id: qwen3.7-plus
+                name: Qwen3.7 Plus
+                input: [text, image]
+              - id: minimax-m2.7
+                name: MiniMax M2.7
+              - id: claude-haiku-5-5
+                name: Claude Haiku 5.5
+                input: [text, image]
